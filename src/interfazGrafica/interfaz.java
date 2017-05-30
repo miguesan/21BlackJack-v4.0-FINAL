@@ -132,18 +132,22 @@ public class interfaz extends javax.swing.JFrame {
     private void aceptarRetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarRetoActionPerformed
 
         jugadorJuega jj = new jugadorJuega();
+        this.setVisible(false);
         jj.numCartasJug();
 
     }//GEN-LAST:event_aceptarRetoActionPerformed
 
     private void botpartidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botpartidasMouseClicked
         String[] args = null;
-        // TODO add your handling code here:
+        this.setVisible(false);
         bdatosJug.main(args);
     }//GEN-LAST:event_botpartidasMouseClicked
 
     private void botinstrucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botinstrucMouseClicked
-        // TODO add your handling code here:
+        instruciones instru = new instruciones();
+        
+        this.setVisible(false);
+        instru.setVisible(true);
     }//GEN-LAST:event_botinstrucMouseClicked
 
     public static void main(String args[]) {
@@ -179,7 +183,7 @@ public class interfaz extends javax.swing.JFrame {
     }
     
     public static void main(){
-    interfaz interf = new interfaz();
+    //interfaz interf = new interfaz();
         
         jugadorJuega tu = new jugadorJuega(); //crea la clase jugadorJuega
         tu.numCartasJug();

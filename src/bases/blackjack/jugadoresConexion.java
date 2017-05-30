@@ -29,7 +29,7 @@ public class jugadoresConexion {
 
     private Connection conectar;
     ResultSet result;
-    private final String ruta ="/home/ped90/NetBeansProjects/Programacion/21BlackJackbas/jugadoreslista.db";
+    private final String ruta ="/home/putodruida/NetBeansProjects/Trabajo_Final/21BlackJackbas/jugadoreslista.db";
     
     public void cargaArray(){
         
