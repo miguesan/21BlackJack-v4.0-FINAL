@@ -29,11 +29,12 @@ public class jugadoresConexion {
 
     private Connection conectar;
     ResultSet result;
-    private final String ruta ="/home/putodruida/NetBeansProjects/Trabajo_Final/21BlackJackbas/jugadoreslista.db";
+    private final String ruta ="/home/ped90/Descargas/Telegram Desktop/bj/jugadoreslista.db";
     
     public void cargaArray(){
         
             lista.add(new parametrosjugs (
+            Integer.parseInt(JOptionPane.showInputDialog("Inserte el número de ID:")),
             JOptionPane.showInputDialog("Inserta el Nombre"),
             JOptionPane.showInputDialog("Inserta el Apellido "),
             JOptionPane.showInputDialog("Inserta el DNI"),
@@ -67,17 +68,16 @@ public class jugadoresConexion {
     public void insertarJugadores(){
         
         try {
-            PreparedStatement ps = conectar.prepareStatement("Insert into jugadores(Nombre, Apellidos, DNI, Edad, Partidasg, Partidasp) values(?,?,?,?,?,?)");
-            for(int i=0;i<lista.size();i++){
-            ps.setString(1,lista.get(i).getNombre());
-            ps.setString(2,lista.get(i).getApellidos());
-            ps.setString(3,lista.get(i).getDni());
-            ps.setString(4,lista.get(i).getEdad());
-            ps.setString(5,lista.get(i).getPartidasg());
-            ps.setString(6,lista.get(i).getPartidasp());
+            PreparedStatement ps = conectar.prepareStatement("Insert into jugadores(ID, Nombre, Apellidos, DNI, Edad, Partidasg, Partidasp) values(?,?,?,?,?,?,?)");
+            ps.setInt(1,lista.get(lista.size()-1).getId());
+            ps.setString(2,lista.get(lista.size()-1).getNombre());
+            ps.setString(3,lista.get(lista.size()-1).getApellidos());
+            ps.setString(4,lista.get(lista.size()-1).getDni());
+            ps.setString(5,lista.get(lista.size()-1).getEdad());
+            ps.setString(6,lista.get(lista.size()-1).getPartidasg());
+            ps.setString(7,lista.get(lista.size()-1).getPartidasp());
             ps.execute();
                 System.out.println("Jugador añadido con éxito");
-            }
         } catch (SQLException ex) {
             System.out.println("Fallo del sistema al insertar :"+ex.getMessage());
         }
@@ -90,6 +90,7 @@ public class jugadoresConexion {
             PreparedStatement ver = conectar.prepareStatement("Select * from Jugadores");
            result = ver.executeQuery();
            while(result.next()){
+               System.out.println("ID "+":"+ result.getInt("ID"));
                System.out.println("Nombre  "+":"+ result.getString("Nombre"));
                System.out.println("Apellidos "+" :"+result.getString("Apellidos"));
                System.out.println("Dni"+" :"+result.getString("DNI"));
@@ -106,10 +107,10 @@ public class jugadoresConexion {
     
     public void borrarJugador(){
         
-        Integer reg=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número del DNI para borrar el jugador:")); 
+        Integer id=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número del ID para borrar el jugador:")); 
         try{ 
             Statement st = conectar.createStatement(); 
-            st.execute("delete from Jugadores where dni="+reg.toString()); 
+            st.execute("delete from Jugadores where id="+id.toString()); 
             System.out.println("Fila borrada con éxito"); 
         }catch(SQLException ex){ 
             System.out.println("Error al borrar la fila, compruebe que ha introducido bien el DNI: "+ex.getMessage()); 
@@ -118,10 +119,10 @@ public class jugadoresConexion {
     }
     
     public void actualizarGanadas(){ 
-        Integer reg=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número del DNI para actualizar la ficha del jugador deseado:")); 
+        Integer id=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número de ID para actualizar la ficha del jugador deseado:")); 
         Integer pg=Integer.parseInt(JOptionPane.showInputDialog("Actualize las partidas que ha ganado:")); 
        try{ 
-            PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasg="+pg.toString()+" where dni="+reg.toString());
+            PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasg="+pg.toString()+" where id="+id.toString());
                 actualiza.execute();
                 System.out.println("Registro actualizado");    
         }catch(SQLException ex){ 
@@ -131,10 +132,10 @@ public class jugadoresConexion {
     }
     
     public void actualizarPerdidas(){ 
-        Integer reg=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número del DNI para actualizar la ficha del jugador deseado:")); 
+        Integer id=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número de ID para actualizar la ficha del jugador deseado:")); 
         Integer pg=Integer.parseInt(JOptionPane.showInputDialog("Actualize las partidas que ha perdido:")); 
        try{ 
-            PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasp="+pg.toString()+" where dni="+reg.toString());
+            PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasp="+pg.toString()+" where id="+id.toString());
                 actualiza.execute();
                 System.out.println("Registro actualizado");                       
         }catch(SQLException ex){ 
@@ -144,19 +145,40 @@ public class jugadoresConexion {
     }
     
     public void actualizarJugador(){ 
-        Integer reg=Integer.parseInt(JOptionPane.showInputDialog("Inserte el número del DNI para actualizar la fila correspondiente:")); 
+        Integer id=Integer.parseInt(JOptionPane.showInputDialog("Introduzca su ID de usuario para actualizar los campos:")); 
         String nom=JOptionPane.showInputDialog("Inserte el nombre a actualizar:"); 
         String ape=JOptionPane.showInputDialog("Inserte el apellido a actualizar:"); 
         String dni=JOptionPane.showInputDialog("Inserte el DNI a actualizar:"); 
         String eda=JOptionPane.showInputDialog("Inserte la edad a actualizar:"); 
        try{ 
-            PreparedStatement actualiza = conectar.prepareStatement("update jugadores set nombre='"+nom+"',apellidos='"+ape+"',dni='"+dni+"',edad='"+eda+"'where dni="+reg.toString());
+            PreparedStatement actualiza = conectar.prepareStatement("update jugadores set nombre='"+nom+"',apellidos='"+ape+"',dni='"+dni+"',edad='"+eda+"'where id="+id.toString());
                 actualiza.execute();
                 System.out.println("Registro actualizado"); 
         }catch(SQLException ex){ 
             System.out.println("Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
         }
        
+    }
+    
+    public void formatearTabla(){
+        Object [] opciones ={"Aceptar","Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(null,"Esta seguro de que desea formatear la tabla?","Mensaje de Confirmacion",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION){
+
+        try {
+        PreparedStatement borracom = conectar.prepareStatement("delete from jugadores");
+        borracom.execute();
+        System.out.println("Tabla formateada");
+
+        } catch(SQLException ex){ 
+            System.out.println("Error al formatear la tabla: "+ex.getMessage());
+        }
+        
+       }else{
+            System.out.println("Cancelado por el usuario");
+        }
     }
     
     public void cerrarBase(){

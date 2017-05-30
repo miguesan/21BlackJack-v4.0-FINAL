@@ -12,17 +12,27 @@ package bases.blackjack;
 public class parametrosjugs {
      String nombre, apellidos,dni,edad;
      String partidasg, partidasp;
+     int id;
 
     public parametrosjugs() {
     }
-
-    public parametrosjugs(String nombre, String apellidos, String dni, String edad, String partidasg, String partidasp) {
+    
+    public parametrosjugs(int id, String nombre, String apellidos, String dni, String edad, String partidasg, String partidasp) {
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
         this.edad = edad;
         this.partidasg = partidasg;
         this.partidasp = partidasp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

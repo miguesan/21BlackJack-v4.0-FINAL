@@ -25,7 +25,7 @@ public class bdatosJug {
         int opcion2;
          do{
          opcion= Integer.parseInt(JOptionPane.showInputDialog("1) Conexión de la Base de Datos. \n2) Insertar Jugador nuevo. \n3) Visualizar Jugadores."
-                                                                                                 + " \n4) Borrar Jugador.  \n5) Actualizar Jugador.  \n6) Actualizar Partidas. \n7) Cerrar Base de datos. \n8) Iniciar el Juego. \n0) Salir del programa."));
+                                                                                                 + " \n4) Borrar Jugador.  \n5) Actualizar Jugador.  \n6) Actualizar Partidas. \n7) Formatear Partidas. \n8) Cerrar Base de datos. \n9) Iniciar el Juego. \n0) Salir del programa."));
          switch(opcion){
             case 1:
                 obx.conectarBase();
@@ -58,9 +58,12 @@ public class bdatosJug {
                 }while(opcion2!=0);  
                 break;
             case 7:
-                obx.cerrarBase();
+                obx.formatearTabla();
                 break;
             case 8:
+                obx.cerrarBase();
+                break;
+            case 9:
                 interfaz.main();
                 break;
             case 0:
