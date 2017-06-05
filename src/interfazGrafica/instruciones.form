@@ -23,24 +23,39 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="416" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="278" max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="267" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="429" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,7 +72,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="LEER ATENTAMENTE:&#xa;&#xa;&#xa;Este juego consiste en mediante las cartas que te&#xa;damos tienes que sumar 21 en total, claramente no en la primera&#xa;mano tendr&#xe1;s 21 (puede ser posible, eso es tener suerte).Una vez&#xa;que te demos las 2 primeras cartas ver&#xe1;s el resultado reflejado en la&#xa;consolapodr&#xe1;s cojer carta para seguir sumando y obtener 21 o si ves&#xa;que tienes buena mano plantarte y ver si tu oponente se planta&#xa;o se rinde. &#xa;&#xa;Recuerda no puedes pasarte de 21 si no pierdes la partida ni tampoco&#xa;quedar por debajo de tu oponente intenta siempre llegar a 21 o lo m&#xe1;s&#xa;aproximado que puedas. S&#xe9; m&#xe1;s listo que tu oponente."/>
+            <Property name="text" type="java.lang.String" value="LEER ATENTAMENTE:&#xa;&#xa;Este juego consiste en mediante las cartas que te&#xa;damos tienes que sumar 21 en total, claramente no en la primera&#xa;mano tendr&#xe1;s 21 (puede ser posible, eso es tener suerte).Una vez&#xa;que te demos las 2 primeras cartas ver&#xe1;s el resultado reflejado en la&#xa;consolapodr&#xe1;s cojer carta para seguir sumando y obtener 21 o si ves&#xa;que tienes buena mano plantarte y ver si tu oponente se planta&#xa;o se rinde. &#xa;&#xa;Recuerda no puedes pasarte de 21 si no pierdes la partida ni tampoco&#xa;quedar por debajo de tu oponente intenta siempre llegar a 21 o lo m&#xe1;s&#xa;aproximado que puedas. S&#xe9; m&#xe1;s listo que tu oponente.&#xa;&#xa;BASE DE DATOS:&#xa;&#xa;Con la base de datos los jugadores podr&#xe1;n saber cuantas partidas han &#xa;perdido y por supuesto ganado. Tamb&#xe9;n puedes ver si tus compa&#xf1;eros &#xa;han progresado en el juego.&#xa;Para poder usar esta base de datos tienes que pulsar primero el bot&#xf3;n de Conectar &#xa;as&#xed; podr&#xe1;s usar la base de datos.&#xa;&#xa;TWITTER:&#xa;&#xa;Puedes twittearen tu cuenta un estado predeterminado para que tus amigos&#xa;vean que est&#xe1;s jugando a este juegazo y darles envidia. &#xa;Para poder conectarte solo necesitas introducir las token de tu cuenta en el archivo&#xa;que se encuentra en el directorio del proyecto. &#xa;Para ello visita la p&#xe1;gina web:&#xa;&#xa;https://dev.twitter.com/&#xa;&#xa;Creas una app nueva y buscas el apartado de tokens, apareceran 3, las copias y las pegas &#xa;en el archivo twitter4j.properties que tienes en la carpeta del proyecto. "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
@@ -72,6 +87,13 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/ped90/Descargas/Telegram Desktop/21BJ/21BlackJackbas/blackjack-solo.png"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -1,7 +1,7 @@
 
 package jugador.blackjack;
 
-import cpu.blackjack.parametrocpu;
+
 import java.util.Random;
 import java.util.Scanner;
 import libreria.milibreria;

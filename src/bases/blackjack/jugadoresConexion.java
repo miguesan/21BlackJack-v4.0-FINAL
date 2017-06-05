@@ -5,11 +5,12 @@
  */
 package bases.blackjack;
 
-import interfazGrafica.bdatosJug;
+import interfazGrafica.bdatosjug;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -23,13 +24,14 @@ import javax.swing.JOptionPane;
  */
 public class jugadoresConexion {
     
-     
     parametrosjugs jug = new parametrosjugs ();
     ArrayList<parametrosjugs >lista = new ArrayList<>();
 
-    private Connection conectar;
-    ResultSet result;
-    private final String ruta ="/home/ped90/Descargas/Telegram Desktop/bj/jugadoreslista.db";
+    static Connection conectar;
+    static ResultSet result;
+    static Statement sentencia;
+    static ResultSetMetaData resultadometa;
+    static String ruta ="/home/ped90/Descargas/Telegram Desktop/21BJ/jugadoreslista.db";
     
     public void cargaArray(){
         
@@ -54,13 +56,13 @@ public class jugadoresConexion {
         
     }
     
-    public void conectarBase(){
+    public static void conectarBase(){
         
         try {
             conectar = DriverManager.getConnection("jdbc:sqlite:"+ruta);
-            System.out.println("La conexión se ha realizado correctamente a la ruta:"+ruta);
+            JOptionPane.showMessageDialog(null,"La conexión se ha realizado correctamente");
         } catch (SQLException ex) {
-            System.out.println("Error de conexión verifique si la ruta está indicada correctamente: "+ex.getMessage()+" a "+ruta);
+            JOptionPane.showMessageDialog(null,"Error de conexión verifique si la ruta está indicada correctamente: "+ex.getMessage()+" a "+ruta);
         }
         
     }
@@ -77,9 +79,9 @@ public class jugadoresConexion {
             ps.setString(6,lista.get(lista.size()-1).getPartidasg());
             ps.setString(7,lista.get(lista.size()-1).getPartidasp());
             ps.execute();
-                System.out.println("Jugador añadido con éxito");
+                JOptionPane.showMessageDialog(null,"Jugador añadido con éxito");
         } catch (SQLException ex) {
-            System.out.println("Fallo del sistema al insertar :"+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Fallo del sistema al insertar :"+ex.getMessage());
         }
         
     }
@@ -111,9 +113,9 @@ public class jugadoresConexion {
         try{ 
             Statement st = conectar.createStatement(); 
             st.execute("delete from Jugadores where id="+id.toString()); 
-            System.out.println("Fila borrada con éxito"); 
+            JOptionPane.showMessageDialog(null,"Fila borrada con éxito"); 
         }catch(SQLException ex){ 
-            System.out.println("Error al borrar la fila, compruebe que ha introducido bien el DNI: "+ex.getMessage()); 
+            JOptionPane.showMessageDialog(null,"Error al borrar la fila, compruebe que ha introducido bien el DNI: "+ex.getMessage()); 
         }
         
     }
@@ -124,9 +126,9 @@ public class jugadoresConexion {
        try{ 
             PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasg="+pg.toString()+" where id="+id.toString());
                 actualiza.execute();
-                System.out.println("Registro actualizado");    
+                JOptionPane.showMessageDialog(null,"Registro actualizado");    
         }catch(SQLException ex){ 
-            System.out.println("Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
         }
        
     }
@@ -137,9 +139,9 @@ public class jugadoresConexion {
        try{ 
             PreparedStatement actualiza = conectar.prepareStatement("update Jugadores set partidasp="+pg.toString()+" where id="+id.toString());
                 actualiza.execute();
-                System.out.println("Registro actualizado");                       
+                JOptionPane.showMessageDialog(null,"Registro actualizado");                       
         }catch(SQLException ex){ 
-            System.out.println("Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
         }
        
     }
@@ -153,9 +155,9 @@ public class jugadoresConexion {
        try{ 
             PreparedStatement actualiza = conectar.prepareStatement("update jugadores set nombre='"+nom+"',apellidos='"+ape+"',dni='"+dni+"',edad='"+eda+"'where id="+id.toString());
                 actualiza.execute();
-                System.out.println("Registro actualizado"); 
+                JOptionPane.showMessageDialog(null,"Registro actualizado"); 
         }catch(SQLException ex){ 
-            System.out.println("Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al actualizar el registro, verifique que ha introducido bien los datos a actualizar: "+ex.getMessage());
         }
        
     }
@@ -170,14 +172,14 @@ public class jugadoresConexion {
         try {
         PreparedStatement borracom = conectar.prepareStatement("delete from jugadores");
         borracom.execute();
-        System.out.println("Tabla formateada");
+        JOptionPane.showMessageDialog(null,"Tabla formateada");
 
         } catch(SQLException ex){ 
-            System.out.println("Error al formatear la tabla: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al formatear la tabla: "+ex.getMessage());
         }
         
        }else{
-            System.out.println("Cancelado por el usuario");
+            JOptionPane.showMessageDialog(null,"Cancelado por el usuario");
         }
     }
     
@@ -185,11 +187,35 @@ public class jugadoresConexion {
         
         try {
                 conectar.close();
-                System.out.println("Seguridad: Base de datos cerrada con éxito.");
+                JOptionPane.showMessageDialog(null,"Seguridad: Base de datos guardada y cerrada con éxito.");
             } catch (SQLException ex) {
-                Logger.getLogger(bdatosJug.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(bdatosjug.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }
+    
+     public static ArrayList<Object[]> buscar_tabla(){
+        ArrayList<Object[]> datos = new ArrayList<Object[]>();
+        try {
+            PreparedStatement ver = conectar.prepareStatement("Select * from Jugadores");
+           result = ver.executeQuery();
+            System.out.println("Correcto");
+        } catch (SQLException ex) {
+            System.out.println("Error al leer la base de datos"+ex.getMessage());
+        }
+        try {
+            while(result.next()){
+                Object[] filas = new Object[7];
+                for(int i = 0;i<7;i++){
+                    filas[i]= result.getObject(i+1);
+                }
+                datos.add(filas);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fatal error"+ex.getMessage());
+        }
+        return datos;
+    
+    }
     
 }
