@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bases.blackjack;
 
 import interfazGrafica.bdatosjug;
@@ -19,8 +15,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+/**
  *
- * @author ped90
+ * @author Pedro y Miguel (Con colaboracion de Alejandro, Mario y Omar)
  */
 public class jugadoresConexion {
     

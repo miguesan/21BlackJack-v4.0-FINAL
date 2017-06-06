@@ -2,12 +2,40 @@
 package interfazGrafica;
 
 
-//import blackjack.Juego;
-import jugador.blackjack.jugadorJuega;
+import java.util.Random;
+import libreria.milibreria;
 import social.twitter.twittear;
+import static interfazGrafica.ejecucion.textoImp;
+
+/**
+ *
+ * @author Pedro y Miguel (Con colaboracion de Alejandro, Mario y Omar)
+ */
 
 public class interfaz extends javax.swing.JFrame { 
     twittear twitt = new twittear();
+    milibreria carta = new milibreria(); 
+    StringBuilder sb = new StringBuilder();
+    static int playerTotal;
+    static int cpuTotal;
+    
+
+    public int getPlayerTotal() {
+        return playerTotal;
+    }
+
+    public static void setPlayerTotal(int playerTotal) {
+        interfaz.playerTotal = playerTotal;
+    }
+
+    public static int getCpuTotal() {
+        return cpuTotal;
+    }
+
+    public static void setCpuTotal(int cpuTotal) {
+        interfaz.cpuTotal = cpuTotal;
+    }
+    
     
     public interfaz() {
         initComponents();
@@ -147,15 +175,40 @@ public class interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_noGraciasActionPerformed
 
     private void aceptarRetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarRetoActionPerformed
+    ejecucion ejecu = new ejecucion();
+    this.setVisible(false);
+    ejecu.setVisible(true);milibreria carta = new milibreria();    
+        Random rnd = new Random();
+        for (int i = carta.getNewCard().length - 1; i > 0; i--){ 
+        int index = rnd.nextInt(i + 1);
+        int a = carta.getNewCard()[index];
+        carta.getNewCard()[index] = carta.getNewCard()[i];
+        carta.getNewCard()[i] = a;
+    }
+        sb.append("COMIENZA EL JUEGO\n");
+        sb.append("*** Juega el Jugador ***\n");
+        sb.append("Tienes un " + carta.getNewCard()[0] + " y un " + carta.getNewCard()[1] + ".\n");
+        playerTotal = carta.getNewCard()[0] + carta.getNewCard()[1];
+        sb.append("En total tus cartas suman " + playerTotal + ".\n"); 
+        
+    
+            if (playerTotal == 21){
+                sb.append("Blackjack, tu ganas :D ");
+               System.exit(0);
+        }
+            if (playerTotal > 21){ 
+                sb.append("Te pasaste, tu pierdes :( "); 
+               System.exit(0); 
+        }
+            sb.append("Que quieres hacer \"carta\" o \"pasar\"? \n\n");
+       
+        textoImp.append(sb.toString());
 
-        jugadorJuega jj = new jugadorJuega();
-        this.setVisible(false);
-        jj.numCartasJug();
     }//GEN-LAST:event_aceptarRetoActionPerformed
 
     private void botpartidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botpartidasMouseClicked
+
         bdatosjug base = new bdatosjug();
-        
         this.setVisible(false);
         base.setVisible(true);
     }//GEN-LAST:event_botpartidasMouseClicked
@@ -168,7 +221,7 @@ public class interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_botinstrucMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
+        
         twitt.publicarEstadoTwitter();
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -205,17 +258,11 @@ public class interfaz extends javax.swing.JFrame {
     }
     
     public static void main(){
-    //interfaz interf = new interfaz();
-        jugadorJuega tu = new jugadorJuega(); //crea la clase jugadorJuega
-        tu.numCartasJug();
-        
-        
-        
-        
+
     }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptarReto;
+    public static javax.swing.JButton aceptarReto;
     private javax.swing.JButton botinstruc;
     private javax.swing.JButton botpartidas;
     private javax.swing.JButton jButton1;

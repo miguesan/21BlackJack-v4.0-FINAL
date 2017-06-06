@@ -3,7 +3,12 @@ package interfazGrafica;
 
 public class instruciones extends javax.swing.JFrame {
 
+    /**
+ *
+ * @author Pedro y Miguel (Con colaboracion de Alejandro, Mario y Omar)
+ */
     public instruciones() {
+        
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -104,6 +109,7 @@ public class instruciones extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new instruciones().setVisible(true);
+                
             }
         });
     }
